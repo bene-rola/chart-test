@@ -1,0 +1,176 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "chart-test",
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "tslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "tslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "projects": {
+    "chart-test": {
+      "projectType": "application",
+      "root": "apps/chart-test",
+      "sourceRoot": "apps/chart-test/src",
+      "prefix": "chart-test",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/chart-test",
+            "index": "apps/chart-test/src/index.html",
+            "main": "apps/chart-test/src/main.ts",
+            "polyfills": "apps/chart-test/src/polyfills.ts",
+            "tsConfig": "apps/chart-test/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/chart-test/src/favicon.ico",
+              "apps/chart-test/src/assets"
+            ],
+            "styles": ["apps/chart-test/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/chart-test/src/environments/environment.ts",
+                  "with": "apps/chart-test/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "chart-test:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "chart-test:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "chart-test:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/chart-test/tsconfig.app.json",
+              "apps/chart-test/tsconfig.spec.json",
+              "apps/chart-test/tsconfig.editor.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/chart-test/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/chart-test"],
+          "options": {
+            "jestConfig": "apps/chart-test/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "chart-test-e2e": {
+      "root": "apps/chart-test-e2e",
+      "sourceRoot": "apps/chart-test-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/chart-test-e2e/cypress.json",
+            "tsConfig": "apps/chart-test-e2e/tsconfig.e2e.json",
+            "devServerTarget": "chart-test:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "chart-test:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/chart-test-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/chart-test-e2e/**/*"]
+          }
+        }
+      }
+    }
+  }
+}
