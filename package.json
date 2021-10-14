@@ -40,7 +40,9 @@
     "@nrwl/angular": "11.6.2",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
-    "zone.js": "^0.10.2"
+    "zone.js": "^0.10.2",
+    "chart.js": "2.7.3",
+    "primeng": "11.4.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.0",

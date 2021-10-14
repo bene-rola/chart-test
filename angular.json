@@ -75,7 +75,12 @@
               "apps/chart-test/src/assets"
             ],
             "styles": ["apps/chart-test/src/styles.scss"],
-            "scripts": []
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "chart.js"
+            ]
           },
           "configurations": {
             "production": {
